@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:square_mobil/Catalog.dart';
+import 'package:square_mobil/GameDescription.dart';
+import 'package:square_mobil/GameDisplay.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +27,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Catalog(),
+      //home: GameDisplay(GameDescription("Taquin","https://play-lh.googleusercontent.com/Ecfnwr4gn39lt3tU1FrK2n4kI_IZ-rJmezE3_hI5gGeeDMnioDwghAT0F5Bk95tNtQ", "Taquin est marrant")),
     );
   }
 }
