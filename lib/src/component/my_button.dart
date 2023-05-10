@@ -15,7 +15,7 @@ class MyButton extends StatelessWidget{
         padding: const EdgeInsets.all(25),
         margin: const EdgeInsets.symmetric(horizontal: 25),
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: Colors.yellow,
           borderRadius: BorderRadius.circular(8),
       ),
 
@@ -23,7 +23,7 @@ class MyButton extends StatelessWidget{
           child: Text(
           "Validez",
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.red,
             fontWeight: FontWeight.bold,
             fontSize: 16,
             ),

@@ -1,14 +1,49 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:square_mobil/src/component/my_button.dart';
 import 'package:square_mobil/src/component/my_textfield.dart';
+import 'package:square_mobil/src/constants.dart';
+import 'package:http/http.dart';
 
-class LoginPage extends StatelessWidget{
-  LoginPage({super.key});
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  class LoginPage extends StatelessWidget{
+    LoginPage({super.key});
+    final usernameController = TextEditingController();
+    final passwordController = TextEditingController();
 
-  void signUserIn(){}
+    void login(String email , password) async {
+
+    try{
+
+      Response response = await post(
+        Uri.parse(ApiConstants.baseUrl+ApiConstants.connectionUrl),
+        body: {
+          'login' : login,
+          'password' : password
+        }
+      );
+
+      if(response.statusCode == 200){
+
+        var data = jsonDecode(response.body.toString());
+        print(data['token']);
+        print('Login successfully');
+
+      }else {
+        print('failed');
+      }
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
+  void signUserIn(){
+      login(
+          usernameController.text.toString(),
+          passwordController.text.toString()
+      );
+  }
 
   @override
   Widget build(BuildContext context){
