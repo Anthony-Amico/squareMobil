@@ -19,7 +19,7 @@ import 'package:http/http.dart';
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: Center(
           child: Column(
@@ -97,19 +97,6 @@ import 'package:http/http.dart';
                 obscureText: true,
               ),
 
-              const SizedBox(height: 10),
-              /*Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Mot de Passe oublié ?',
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                  ],
-                ),
-              ),*/
               const SizedBox(height: 25),
               MyButton(
                 onTap:() {
@@ -126,18 +113,25 @@ import 'package:http/http.dart';
                     style: TextStyle(color: Colors.grey[700]),
                   ),
                   const SizedBox(width: 100),
-                  const Text('inscription',
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold
+                  Container(
+                    child: ElevatedButton(
+                      child: const Text('inscription',
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/constants');
+
+                      },
                     ),
                   ),
                 ],
               ),
             ],
           ),
-        )
-
+        ),
       ),
     );
   }
