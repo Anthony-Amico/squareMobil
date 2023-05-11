@@ -21,7 +21,7 @@ class MyButton extends StatelessWidget{
 
         child: const Center(
           child: Text(
-          "Validez",
+          "Connexion",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,

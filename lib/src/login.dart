@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:square_mobil/src/component/my_button.dart';
@@ -12,37 +13,143 @@ import 'package:http/http.dart';
     final usernameController = TextEditingController();
     final passwordController = TextEditingController();
 
-    void login(String login , String password) async {
 
-    try{
 
-      Response response = await post(
-        Uri.parse(ApiConstants.baseUrl+ApiConstants.connectionUrl),
-        body: {
-          'login' : login,
-          'password' : password
-        }
-      );
 
-      if(response.statusCode == 200){
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      backgroundColor: Colors.grey[300],
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:  [
+              const SizedBox(height: 0),
+              ShaderMask(
+                shaderCallback: (Rect bounds) {
+                  return LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.grey.shade200, Colors.grey.shade500],
+                  ).createShader(bounds);
+                },
+                child: Icon(
+                  Icons.cloud,
+                  color: Colors.white,
+                  size: 100.0,
+                ),
 
-        var data = jsonDecode(response.body.toString());
-        print(data['token']);
-        print('Login successfully');
+              ),
+              Text(
+                'Square Games',
+                style: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 50),
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Text(
+                      'Connexion',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 25),
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Text(
+                      'Une jolie phrase de bienvenue',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 20,
+                        // fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 25),
+              MyTextField(
+                controller: usernameController,
+                hintText: "nom d'utilisateur",
+                obscureText: false,
+              ),
 
-      }else {
-        print('failed');
-      }
-    }catch(e){
-      print(e.toString());
-    }
+              const SizedBox(height: 25),
+              MyTextField(
+                controller: passwordController,
+                hintText: 'Mot de passe',
+                obscureText: true,
+              ),
+
+              const SizedBox(height: 10),
+              /*Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Mot de Passe oublié ?',
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
+                  ],
+                ),
+              ),*/
+              const SizedBox(height: 25),
+              MyButton(
+                onTap:() {
+                  signUserIn(usernameController.text,
+                      passwordController.text);
+                },),
+              const SizedBox(height: 100),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Mot de passe oublié ?',
+                    style: TextStyle(color: Colors.grey[700]),
+                  ),
+                  const SizedBox(width: 100),
+                  const Text('inscription',
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        )
+
+      ),
+    );
   }
+}
 
-  void signUserIn(String login , String password) async {
+
+
+void signUserIn(String login , String password) async {
     try{
 
       Response response = await post(
-          Uri.parse('http://172.22.114.101:8080/api/1/sessions'),
+          Uri.parse(ApiConstants.baseUrl+ApiConstants.connectionUrl),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -66,80 +173,3 @@ import 'package:http/http.dart';
       print(e.toString());
     }
   }
-
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children:  [
-              const SizedBox(height: 100),
-              Text(
-                'Connectez vous',
-                style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(height: 25),
-              MyTextField(
-                controller: usernameController,
-                hintText: "nom d'utilisateur",
-                obscureText: false,
-              ),
-
-              const SizedBox(height: 25),
-              MyTextField(
-                controller: passwordController,
-                hintText: 'Mot de passe',
-                obscureText: true,
-              ),
-
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Mot de Passe oublié ?',
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 25),
-              MyButton(
-                onTap:() {
-                  signUserIn(usernameController.text,
-                      passwordController.text);
-                },),
-              const SizedBox(height: 50),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Pas Inscrit ?',
-                    style: TextStyle(color: Colors.grey[700]),
-                  ),
-                  const SizedBox(width: 4),
-                  const Text('enregistrez vous',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        )
-
-      ),
-    );
-  }
-}
