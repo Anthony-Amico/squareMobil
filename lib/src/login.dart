@@ -12,7 +12,7 @@ import 'package:http/http.dart';
     final usernameController = TextEditingController();
     final passwordController = TextEditingController();
 
-    void login(String email , password) async {
+    void login(String login , String password) async {
 
     try{
 
@@ -38,11 +38,33 @@ import 'package:http/http.dart';
     }
   }
 
-  void signUserIn(){
-      login(
-          usernameController.text.toString(),
-          passwordController.text.toString()
+  void signUserIn(String login , String password) async {
+    try{
+
+      Response response = await post(
+          Uri.parse('http://172.22.114.101:8080/api/1/sessions'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body:  jsonEncode(<String, String>{
+            "login" : login,
+            "password" : password
+          })
       );
+
+      if(response.statusCode == 200){
+
+        var data = jsonDecode(response.body.toString());
+        print(data['playerId']);
+        print('Login successfully');
+
+      }else {
+        print("erreur");
+        print(response.statusCode);
+      }
+    }catch(e){
+      print(e.toString());
+    }
   }
 
   @override
@@ -91,8 +113,10 @@ import 'package:http/http.dart';
               ),
               const SizedBox(height: 25),
               MyButton(
-                onTap: signUserIn,
-              ),
+                onTap:() {
+                  signUserIn(usernameController.text,
+                      passwordController.text);
+                },),
               const SizedBox(height: 50),
 
               Row(
