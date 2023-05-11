@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:square_mobil/src/login.dart';
+
 // void main() => runApp(const Signup());
 
 class Signup extends StatelessWidget {
@@ -10,16 +12,36 @@ class Signup extends StatelessWidget {
   static const String _title = 'Inscription';
 
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     title: _title,
+  //     home: Scaffold(
+  //       appBar: AppBar(title: const Text(_title)),
+  //       body: const MyStatefulWidget(),
+  //     ),
+  //   );
+  // }
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: Scaffold(
-        appBar: AppBar(title: const Text(_title)),
-        body: const MyStatefulWidget(),
-      ),
+  Widget build(BuildContext context){
+    return Scaffold(
+      backgroundColor: Colors.grey[200],
+      body: SafeArea(
+
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 0),
+              const MyStatefulWidget(),
+            ],
+          ),
+        )
+      )
     );
   }
+
 }
 
 class MyStatefulWidget extends StatefulWidget {
@@ -123,6 +145,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 if (_formKey.currentState!.validate()) {
                   if(checked == true){
                     postData();
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
                   } else {
                     print('CGU non acceptées');
                   }
