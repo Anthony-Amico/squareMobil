@@ -22,7 +22,7 @@ class Signup extends StatelessWidget {
       ),
       home: Scaffold(
           appBar: AppBar(
-            elevation: 1,
+            elevation: 3,
             backgroundColor: Colors.grey[200],
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios),
@@ -34,16 +34,13 @@ class Signup extends StatelessWidget {
                 );
               },
             ),
-            title: const Center(
-              child: Text(
-                _title,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+            title: const Text(_title,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold
               ),
-            ),
+            )
           ),
           backgroundColor: Colors.grey[200],
           body: Padding(
@@ -205,7 +202,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         ),
                       ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Signup()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
                 }
                ),
                     ],
