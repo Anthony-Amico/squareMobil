@@ -2,21 +2,63 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:square_mobil/src/login.dart';
+
+import 'BottomNavBar.dart';
+
 // void main() => runApp(const Signup());
 
 class Signup extends StatelessWidget {
   const Signup({super.key});
 
   static const String _title = 'Inscription';
-
+  final bool connected = true;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _title,
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
       home: Scaffold(
-        appBar: AppBar(title: const Text(_title)),
-        body: const MyStatefulWidget(),
+          appBar: AppBar(
+            elevation: 1,
+            backgroundColor: Colors.grey[200],
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              color: Colors.red,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+            ),
+            title: const Center(
+              child: Text(
+                _title,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          backgroundColor: Colors.grey[200],
+          body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 50),
+                    const MyStatefulWidget(),
+                  ],
+                ),
+              )
+          ),
+        bottomNavigationBar: !connected ?null: BottomNavBar(),
       ),
     );
   }
@@ -62,6 +104,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           TextFormField(
             controller: emailController,
@@ -77,6 +120,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               return null;
             },
           ),
+          const SizedBox(height: 24),
           TextFormField(
             controller: loginController,
            // initialValue: login,
@@ -91,6 +135,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             },
             onChanged: (value)=>login=value,
           ),
+          const SizedBox(height: 24),
           TextFormField(
             obscureText: true,
             controller: passwordController,
@@ -112,17 +157,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 checked = value??false;
               });
           },
-              title: Text("J'ai lu et accepte les conditions d'utilisation")),
+              title: const Text("J'ai lu et accepte les conditions d'utilisation")),
 
           Center(
             // padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+                primary: Colors.red,
+                onPrimary: Colors.white,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+              ),
               onPressed: !checked?null: () {
                 // Validate will return true if the form is valid, or false if
                 // the form is invalid.
                 if (_formKey.currentState!.validate()) {
                   if(checked == true){
                     postData();
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
                   } else {
                     print('CGU non acceptées');
                   }
@@ -130,6 +184,34 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               },
               child: const Text('Continuer'),
             ),
+          ),
+          const SizedBox(height: 50),
+          Row(
+            children: [
+              Expanded(child: Text('Déjà un compte?',
+                style: TextStyle(
+                  color: Colors.grey.shade600)
+                ),
+              ),
+              Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        child: const Text('Connexion',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Signup()));
+                }
+               ),
+                    ],
+                  )
+              ),
+            ],
           ),
         ],
       ),
