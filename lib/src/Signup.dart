@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:square_mobil/src/constants.dart';
 import 'dart:convert';
 
 import 'package:square_mobil/src/login.dart';
@@ -85,7 +86,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     print(jsonEncode2);
     var response = await http
         .post(
-      Uri.parse("http://172.22.114.115:8080/api/1/players"),
+      Uri.parse(ApiConstants.baseUrl+ApiConstants.connectionUrl),
       headers: <String, String>{
         'Content-Type' : 'application/json; charset=UTF-8'
       },
