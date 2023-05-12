@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:square_mobil/Catalog.dart';
-import 'package:square_mobil/GameDescription.dart';
-import 'package:square_mobil/GameDisplay.dart';
+import 'package:square_mobil/src/Catalog.dart';
+
 
 void main() {
   runApp(const MyApp());
