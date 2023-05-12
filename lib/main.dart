@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'SquareMobile',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       home: LoginPage(),
 
