@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.square_mobil">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="square_mobil"
         android:name="${applicationName}"
