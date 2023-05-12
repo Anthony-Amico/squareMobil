@@ -26,8 +26,13 @@ class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+        appBar: AppBar(
+        leading: const BackButton(
+        color: Colors.grey
+        ),
+    backgroundColor: Colors.grey[200],
       body: SafeArea(
+
 
         child: SingleChildScrollView(
           child: Column(
