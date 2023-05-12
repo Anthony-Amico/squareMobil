@@ -4,44 +4,39 @@ import 'dart:convert';
 
 import 'package:square_mobil/src/login.dart';
 
+import 'BottomNavBar.dart';
+
 // void main() => runApp(const Signup());
 
 class Signup extends StatelessWidget {
   const Signup({super.key});
 
   static const String _title = 'Inscription';
-
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     title: _title,
-  //     home: Scaffold(
-  //       appBar: AppBar(title: const Text(_title)),
-  //       body: const MyStatefulWidget(),
-  //     ),
-  //   );
-  // }
+  final bool connected = true;
 
   @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      backgroundColor: Colors.grey[200],
-      body: SafeArea(
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: _title,
+      home: Scaffold(
+          backgroundColor: Colors.grey[200],
+          body: SafeArea(
 
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 100),
-              const MyStatefulWidget(),
-            ],
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 100),
+                    const MyStatefulWidget(),
+                  ],
+                ),
+              )
           ),
-        )
-      )
+        bottomNavigationBar: !connected ?null: BottomNavBar(),
+        appBar: AppBar(title: const Text(_title)),
+      ),
     );
   }
-
 }
 
 class MyStatefulWidget extends StatefulWidget {
