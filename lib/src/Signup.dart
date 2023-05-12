@@ -86,7 +86,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     print(jsonEncode2);
     var response = await http
         .post(
-      Uri.parse(ApiConstants.baseUrl+ApiConstants.connectionUrl),
+      Uri.parse(ApiConstants.baseUrl+ApiConstants.inscriptionUrl),
       headers: <String, String>{
         'Content-Type' : 'application/json; charset=UTF-8'
       },
