@@ -17,23 +17,48 @@ class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _title,
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
       home: Scaffold(
+          appBar: AppBar(
+            elevation: 1,
+            backgroundColor: Colors.grey[200],
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              color: Colors.red,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+            ),
+            title: const Center(
+              child: Text(
+                _title,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
           backgroundColor: Colors.grey[200],
-          body: SafeArea(
-
+          body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 100),
+                    const SizedBox(height: 50),
                     const MyStatefulWidget(),
                   ],
                 ),
               )
           ),
         bottomNavigationBar: !connected ?null: BottomNavBar(),
-        appBar: AppBar(title: const Text(_title)),
       ),
     );
   }
@@ -95,6 +120,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               return null;
             },
           ),
+          const SizedBox(height: 24),
           TextFormField(
             controller: loginController,
            // initialValue: login,
@@ -109,6 +135,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             },
             onChanged: (value)=>login=value,
           ),
+          const SizedBox(height: 24),
           TextFormField(
             obscureText: true,
             controller: passwordController,
@@ -130,11 +157,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 checked = value??false;
               });
           },
-              title: Text("J'ai lu et accepte les conditions d'utilisation")),
+              title: const Text("J'ai lu et accepte les conditions d'utilisation")),
 
           Center(
             // padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+                primary: Colors.red,
+                onPrimary: Colors.white,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+              ),
               onPressed: !checked?null: () {
                 // Validate will return true if the form is valid, or false if
                 // the form is invalid.
@@ -150,25 +185,32 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               child: const Text('Continuer'),
             ),
           ),
+          const SizedBox(height: 50),
           Row(
             children: [
               Expanded(child: Text('Déjà un compte?',
                 style: TextStyle(
-                  color: Colors.grey)
+                  color: Colors.grey.shade600)
                 ),
               ),
-              Expanded(child: TextButton(
-                child: const Text('Connexion',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
+              Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        child: const Text('Connexion',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const Signup()));
                 }
-               )
-              )
+               ),
+                    ],
+                  )
+              ),
             ],
           ),
         ],
