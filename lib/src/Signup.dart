@@ -33,7 +33,7 @@ class Signup extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 0),
+              const SizedBox(height: 100),
               const MyStatefulWidget(),
             ],
           ),
@@ -84,6 +84,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           TextFormField(
             controller: emailController,
@@ -153,6 +154,27 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               },
               child: const Text('Continuer'),
             ),
+          ),
+          Row(
+            children: [
+              Expanded(child: Text('Déjà un compte?',
+                style: TextStyle(
+                  color: Colors.grey)
+                ),
+              ),
+              Expanded(child: TextButton(
+                child: const Text('Connexion',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Signup()));
+                }
+               )
+              )
+            ],
           ),
         ],
       ),
